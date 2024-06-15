@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\PLASTIC_WARFARE_PROJ.props" />
+</Project>

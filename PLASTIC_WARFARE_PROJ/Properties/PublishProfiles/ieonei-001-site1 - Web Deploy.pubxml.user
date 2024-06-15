@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project>
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAkeTFZG4/7Uq+I/DrQgEe8gAAAAACAAAAAAAQZgAAAAEAACAAAADdgev0M95r01BlhWxs9+C2AjdnHe79PV1J1Fla15lIPgAAAAAOgAAAAAIAACAAAADg09wDM3dPlCwOq4P556dGWOY0gmEHCHu4HkJTFajSlCAAAACDqiZaflthvJoGC8zmYDOvIwrmTtyTPPxTyuQ+MQ9ZG0AAAAAKekmh4MX4VReLpywBVbMsl0x4TOC/X8mXNlQ3zOcyOYSf0qLe3kbFCgfDKxHWdnuw2Bhx9dv82Yq3Ec0Udx2R</EncryptedPassword>
+    <History>True|2024-06-14T11:45:54.9120828Z;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="OrdersDataConnection">
+      <Value>Data Source=SQL6032.site4now.net%3bInitial Catalog=db_aa9ef6_plasticwarfaredb%3bUser Id=db_aa9ef6_plasticwarfaredb_admin%3bPassword=Lolkalol101</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

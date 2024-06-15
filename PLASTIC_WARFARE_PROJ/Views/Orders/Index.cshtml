@@ -1,0 +1,40 @@
+﻿@model PLASTIC_WARFARE_PROJ.ViewModels.OrderVM
+
+<div class="container myContainer">
+    <h2>Orders Management</h2>
+    <ul class="nav nav-tabs d-flex flex-row" id="ordersTabs">
+        <li class="nav-item">
+            <a class="nav-link active" href="#!" data-target="#content" data-url="@Url.Action("PendingOrders")">Заказы в обработке</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#!" data-target="#content" data-url="@Url.Action("ProcessedOrders")">Обработанные заказы</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#!" data-target="#content" data-url="@Url.Action("NewOrder")">Сделать новый заказ</a>
+        </li>
+    </ul>
+    <div id="content" class="mt-4">
+        @await Html.PartialAsync("_PendingOrders", Model);
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#ordersTabs a').click(function (e) {
+                e.preventDefault();
+                var url = $(this).data('url');
+                var target = $($(this).data('target'));
+
+                // Изменение цвета выбранной вкладки
+                $('#ordersTabs a').removeClass('active');
+                $(this).addClass('active');
+
+                // Загрузка содержимого через AJAX
+                $.get(url, function (data) {
+                    target.html(data);
+                });
+            });
+        });
+    </script>
+}

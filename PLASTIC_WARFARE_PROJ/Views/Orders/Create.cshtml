@@ -1,0 +1,151 @@
+﻿@model PLASTIC_WARFARE_PROJ.ViewModels.OrderVM
+@using Newtonsoft.Json
+@using Newtonsoft.Json.Serialization
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+   
+    var colorsJson = JsonConvert.SerializeObject(Model.Colors);
+}
+
+
+<div class="row">
+    <section class="page-section" id="contact">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-heading text-uppercase">New Order</h2>
+                <h3 class="section-subheading text-muted">Price will be set after evaluation</h3>
+            </div>
+            
+            <form id="contactForm" asp-action="Create" enctype="multipart/form-data" onsubmit="setDefaultMessage(event)">
+                <div class="row align-items-stretch mb-5">
+                    <div class="col-md-6">
+                        <div class="form-group col-12">
+                            <input type="file" class="form-control" multiple name="stls" />
+                        </div>
+                        <div class="form-group col-12">
+                            <select class="form-select-lg  col-12" name="PlasticTypeId" id="plasticTypeId">
+                                @foreach (var plastic in Model.PlasticTypes)
+                                {
+                                    <option value="@plastic.Id">@plastic.Type</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-select-lg  col-12" name="ColorId" id="colorDropdown">
+                                
+                            </select>
+                        </div>
+                       
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group form-group-textarea mb-md-0">
+                            
+                            <textarea class="form-control" name="AdditionalDescription" id="message" placeholder="Provide us with additional info about what do you want to do with the models (Example:Make them x2 bigger)"></textarea>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- Submit success message-->
+                <!---->
+                <!-- This is what your users will see when the form-->
+                <!-- has successfully submitted-->
+                <div class="d-none" id="submitSuccessMessage">
+                    <div class="text-center text-white mb-3">
+                        <div class="fw-bolder">Form submission successful!</div>
+                        To activate this form, sign up at
+                        <br />
+                        <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+                    </div>
+                </div>
+                <!-- Submit error message-->
+                <!---->
+                <!-- This is what your users will see when there is-->
+                <!-- an error submitting the form-->
+                <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+                <!-- Submit Button-->
+                <div class="text-center"><button  class="btn btn-warning btn-xl text-uppercase" id="submitButton" type="submit">Proceed</button></div>
+                
+            </form>
+        </div>
+    </section>
+
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const dropdown = document.getElementById('plasticTypeId');
+        dropdown.selectedIndex = 0;
+        const colorsDropdown = document.getElementById('colorDropdown');
+        setColors(dropdown, colorsDropdown);
+    });
+    var colors = @Html.Raw(colorsJson);
+
+    const dropdown = document.getElementById('plasticTypeId');
+
+    
+    const colorsDropdown = document.getElementById('colorDropdown')
+
+    var colorOptions = colorsDropdown.options;
+    
+    
+    dropdown.onchange = function () {
+
+        console.log(colors);
+        
+        // Удаляем все существующие опции из списка цветов
+        for (let i = colorOptions.length - 1; i >= 0; i--)
+        {
+            colorDropdown.remove(i);
+        }
+        //заполняем заново 
+        setColors(dropdown,colorsDropdown);
+        
+    }
+
+
+    function setColors(dropdown,colorsDropdown){
+        const selectedIndex = dropdown.selectedIndex;
+        console.log(selectedIndex);
+        if (dropdown.options[selectedIndex].text.toLowerCase().includes("abs") || dropdown.options[selectedIndex].text.toLowerCase().includes("wood") || dropdown.options[selectedIndex].text.toLowerCase().includes("cf") || dropdown.options[selectedIndex].text.toLowerCase().includes("marble")) {
+            for (let i = 0; i <colors.length; i++) {
+                if (colors[i].ColorN === 'Default') {
+                    console.log("includes")
+                    var option = document.createElement('option');
+                    option.text = colors[i].ColorN;
+                    option.value = colors[i].Id;
+                    colorsDropdown.appendChild(option);
+                }
+
+            }
+        }
+        else {
+            for (let i = 0; i < colors.length; i++) {
+                if (colors[i].ColorN !== 'Default') {
+                    console.log("doesn't include");
+                    var option = document.createElement('option');
+                    option.text = colors[i].ColorN;
+                    option.value = colors[i].Id;
+                    colorsDropdown.appendChild(option);
+                }
+
+            }
+        }
+    }
+
+
+    function setDefaultMessage(e) {
+        
+        var message = document.getElementById('message');
+        if (message.innerText === null || message.innerText === "") {
+            message.innerText = 'No Special Demands';
+        }
+    }
+    
+</script>
+

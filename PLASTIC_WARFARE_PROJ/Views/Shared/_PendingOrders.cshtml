@@ -1,0 +1,68 @@
+﻿@model PLASTIC_WARFARE_PROJ.ViewModels.OrderVM
+
+
+
+<div class="containerMargin d-flex justify-content-center">
+    <div class="col-10">
+        <table class="table table-dark">
+            <thead>
+                <tr>
+
+                    <th scope="col">
+                        UserId
+                    </th>
+
+                    <th scope="col">
+                        ModelsAmount
+
+
+                    <th scope="col">
+                        Color
+                    </th>
+                    <th scope="col">
+                        Pl.Type
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Orders)
+                {
+
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserId)
+                        </td>
+
+
+
+
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ModelsAmount)
+                        </td>
+
+
+
+
+
+
+
+
+
+                        <td>
+                            @Model.Colors.Where(c=>c.Id==item.ColorId).FirstOrDefault().ColorN;
+                        </td>
+
+
+                        <td>
+                            @Model.PlasticTypes.Where(pt=>pt.Id==item.PlasticTypeId).FirstOrDefault().Type;
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
